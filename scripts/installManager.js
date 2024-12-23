@@ -2,47 +2,55 @@ const InstallManager = {
     deferredPrompt: null,
 
     init() {
+        console.log('InstallManager инициализирован'); // Отладка
+
         // Создаем кнопку установки
         const installButton = document.createElement('button');
         installButton.classList.add('install-button');
         installButton.style.display = 'none';
         installButton.innerHTML = `
-            <img src="/nAnimeQuiz/media/install-icon.png" alt="Установить">
             <span>Установить приложение</span>
         `;
         document.body.appendChild(installButton);
 
         // Отслеживаем возможность установки
         window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('Получено событие beforeinstallprompt'); // Отладка
             e.preventDefault();
             this.deferredPrompt = e;
             installButton.style.display = 'flex';
-            console.log('PWA может быть установлено'); // Для отладки
         });
 
-        // Обработчик клика по кнопке
+        // Обработчик клика
         installButton.addEventListener('click', async () => {
+            console.log('Кнопка установки нажата'); // Отладка
             if (this.deferredPrompt) {
-                console.log('Показываем промпт установки'); // Для отладки
                 this.deferredPrompt.prompt();
                 const { outcome } = await this.deferredPrompt.userChoice;
                 console.log('Результат установки:', outcome);
                 this.deferredPrompt = null;
                 installButton.style.display = 'none';
             } else {
-                console.log('deferredPrompt не доступен'); // Для отладки
+                console.log('deferredPrompt недоступен');
             }
         });
 
-        // Если приложение уже установлено
-        window.addEventListener('appinstalled', () => {
-            console.log('PWA успешно установлено');
-            installButton.style.display = 'none';
-        });
+        // Проверяем, поддерживается ли установка
+        if ('getInstalledRelatedApps' in navigator) {
+            navigator.getInstalledRelatedApps()
+                .then(apps => {
+                    console.log('Установленные приложения:', apps);
+                })
+                .catch(console.error);
+        }
     }
 };
 
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    InstallManager.init();
-}); 
+// Инициализация
+if ('serviceWorker' in navigator && 'BeforeInstallPromptEvent' in window) {
+    document.addEventListener('DOMContentLoaded', () => {
+        InstallManager.init();
+    });
+} else {
+    console.log('PWA не поддерживается в этом браузере');
+} 

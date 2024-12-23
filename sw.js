@@ -2,13 +2,15 @@ const CACHE_NAME = 'anime-tests-v1';
 const urlsToCache = [
     '/nAnimeQuiz/',
     '/nAnimeQuiz/index.html',
+    '/nAnimeQuiz/manifest.json',
     '/nAnimeQuiz/styles/style.css',
     '/nAnimeQuiz/scripts/init.js',
-    '/nAnimeQuiz/scripts/news.js',
-    '/nAnimeQuiz/media/home-icon.png',
-    '/nAnimeQuiz/media/play-icon.png',
-    '/nAnimeQuiz/media/about-icon.png',
-    '/nAnimeQuiz/media/profile-icon.png',
+    '/nAnimeQuiz/scripts/installManager.js',
+    '/nAnimeQuiz/scripts/profileManager.js'
+];
+
+// Отдельный список для медиафайлов
+const mediaFiles = [
     '/nAnimeQuiz/media/favicon/icon-192x192.png',
     '/nAnimeQuiz/media/favicon/icon-512x512.png'
 ];
@@ -18,10 +20,22 @@ self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                console.log('Кэширование файлов');
-                return cache.addAll(urlsToCache);
+                console.log('Кэширование основных файлов');
+                // Сначала кэшируем основные файлы
+                return cache.addAll(urlsToCache)
+                    .then(() => {
+                        console.log('Кэширование медиафайлов');
+                        // Затем пробуем кэшировать медиафайлы
+                        return cache.addAll(mediaFiles)
+                            .catch(err => {
+                                console.warn('Ошибка кэширования медиафайлов:', err);
+                                // Продолжаем работу даже если медиафайлы не закэшировались
+                                return Promise.resolve();
+                            });
+                    });
             })
     );
+    self.skipWaiting();
 });
 
 // Активация
