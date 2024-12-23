@@ -21,14 +21,37 @@ const ProfileManager = {
             const defaultAvatar = '/nAnimeQuiz/media/default-avatar.png';
             const currentAvatar = UserManager.getAvatar();
             
-            if (currentAvatar && currentAvatar !== 'null' && currentAvatar !== 'undefined') {
-                avatarImg.src = currentAvatar;
-                console.log('Установлен аватар:', currentAvatar);
-            } else {
+            try {
+                // Проверяем, является ли аватар base64 строкой
+                if (currentAvatar && currentAvatar.startsWith('data:image')) {
+                    // Создаем Blob из base64
+                    fetch(currentAvatar)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            // Создаем временный URL для Blob
+                            const objectURL = URL.createObjectURL(blob);
+                            avatarImg.src = objectURL;
+                            
+                            // Очищаем URL после загрузки
+                            avatarImg.onload = () => {
+                                URL.revokeObjectURL(objectURL);
+                            };
+                        })
+                        .catch(err => {
+                            console.error('Ошибка загрузки аватара:', err);
+                            avatarImg.src = defaultAvatar;
+                        });
+                } else {
+                    // Если это не base64, используем как обычный URL
+                    avatarImg.src = currentAvatar || defaultAvatar;
+                }
+            } catch (err) {
+                console.error('Ошибка при обработке аватара:', err);
                 avatarImg.src = defaultAvatar;
                 console.log('Установлен дефолтный аватар');
             }
-            
+
+            // Обработка ошибок загрузки
             avatarImg.onerror = function() {
                 console.log('Ошибка загрузки аватара, устанавливаем дефолтный');
                 this.src = defaultAvatar;

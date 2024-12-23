@@ -8,35 +8,68 @@ const urlsToCache = [
     '/nAnimeQuiz/media/home-icon.png',
     '/nAnimeQuiz/media/play-icon.png',
     '/nAnimeQuiz/media/about-icon.png',
-    '/nAnimeQuiz/media/profile-icon.png'
+    '/nAnimeQuiz/media/profile-icon.png',
+    '/nAnimeQuiz/media/favicon/favicon-32x32.png',
+    '/nAnimeQuiz/media/favicon/apple-touch-icon.png',
+    '/nAnimeQuiz/media/favicon/icon-512x512.png'
 ];
 
+// Установка Service Worker
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                // Кешируем файлы по одному, чтобы видеть, какой именно файл вызывает ошибку
-                return Promise.all(
-                    urlsToCache.map(url => {
-                        return cache.add(url).catch(err => {
-                            console.log('Ошибка кеширования для:', url, err);
-                            // Продолжаем, даже если один файл не удалось закешировать
-                            return Promise.resolve();
-                        });
-                    })
-                );
+                console.log('Кэширование файлов');
+                return cache.addAll(urlsToCache);
             })
     );
+    // Принудительно активируем Service Worker
+    self.skipWaiting();
 });
 
+// Активация Service Worker
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cacheName => {
+                    if (cacheName !== CACHE_NAME) {
+                        console.log('Удаление старого кэша:', cacheName);
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
+    // Захватываем управление над всеми вкладками
+    self.clients.claim();
+});
+
+// Перехват запросов
 self.addEventListener('fetch', event => {
+    // Пропускаем запросы с base64
+    if (event.request.url.startsWith('data:')) {
+        return;
+    }
+
     event.respondWith(
         caches.match(event.request)
             .then(response => {
                 if (response) {
                     return response;
                 }
-                return fetch(event.request);
+                return fetch(event.request)
+                    .then(response => {
+                        if (!response || response.status !== 200 || response.type !== 'basic') {
+                            return response;
+                        }
+                        const responseToCache = response.clone();
+                        caches.open(CACHE_NAME)
+                            .then(cache => {
+                                cache.put(event.request, responseToCache);
+                            });
+                        return response;
+                    });
             })
     );
 }); 
