@@ -1366,9 +1366,8 @@ input:checked + .slider:before {
     display: none; /* По умолчанию скрыта */
     width: 100%;
     padding: 12px;
-    margin-top: 20px;
-    background: var(--accent-color);
-    color: white;
+    background: var(--card-background);
+    color: var(--text-color);
     border: none;
     border-radius: 8px;
     cursor: pointer;
