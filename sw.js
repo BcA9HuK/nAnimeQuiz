@@ -1,14 +1,14 @@
 const CACHE_NAME = 'anime-tests-v1';
 const urlsToCache = [
-    './',
-    './index.html',
-    './styles/style.css',
-    './scripts/init.js',
-    './scripts/news.js',
-    './media/home-icon.png',
-    './media/play-icon.png',
-    './media/about-icon.png',
-    './media/profile-icon.png'
+    '/nAnimeQuiz/',
+    '/nAnimeQuiz/index.html',
+    '/nAnimeQuiz/styles/style.css',
+    '/nAnimeQuiz/scripts/init.js',
+    '/nAnimeQuiz/scripts/news.js',
+    '/nAnimeQuiz/media/home-icon.png',
+    '/nAnimeQuiz/media/play-icon.png',
+    '/nAnimeQuiz/media/about-icon.png',
+    '/nAnimeQuiz/media/profile-icon.png'
 ];
 
 self.addEventListener('install', event => {

@@ -2,18 +2,19 @@
     "name": "Аниме Тесты",
     "short_name": "АнимеТест",
     "description": "Тесты на знание аниме",
-    "start_url": "./index.html",
+    "start_url": "/anime-tests/index.html",
+    "scope": "/anime-tests/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#4ecdc4",
     "icons": [
         {
-            "src": "./media/favicon/favicon-32x32.png",
+            "src": "/anime-tests/media/favicon/favicon-32x32.png",
             "sizes": "32x32",
             "type": "image/png"
         },
         {
-            "src": "./media/favicon/apple-touch-icon.png",
+            "src": "/anime-tests/media/favicon/apple-touch-icon.png",
             "sizes": "180x180",
             "type": "image/png"
         }

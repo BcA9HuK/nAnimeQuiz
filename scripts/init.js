@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Регистрация Service Worker с абсолютным путем
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        navigator.serviceWorker.register('/nAnimeQuiz/sw.js', { scope: '/nAnimeQuiz/' })
             .then(registration => {
                 console.log('ServiceWorker зарегистрирован:', registration);
             })
