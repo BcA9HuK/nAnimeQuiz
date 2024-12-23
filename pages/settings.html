@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки</title>
+    <script>
+        // Применяем тему сразу при загрузке страницы
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="../media/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../media/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../media/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <div class="title_settings">Настройки</div>
+    </div>
+    
+    <div class="container settings-container">
+        <div class="settings-list">
+            <h2>Приложение</h2>
+            <div class="setting-item">
+                <span>Тёмная тема</span>
+                <label class="theme-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <span>Язык</span>
+                <select id="languageSelect" class="language-select">
+                    <option value="ru">Русский</option>
+                    <option value="en">English (Его нет)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+        <!-- Блок настроек профиля -->
+    <div class="container settings-container">
+        <div class="settings-list">
+            <h2>Профиль</h2>
+            <div class="setting-item" onclick="SettingsManager.showEditNameDialog()">
+                <span>Изменить никнейм</span>
+                <span class="setting-arrow">></span>
+            </div>
+            <div class="setting-item" onclick="SettingsManager.showEditStatusDialog()">
+                <span>Изменить статус</span>
+                <span class="setting-arrow">></span>
+            </div>
+            <div class="setting-item" onclick="SettingsManager.showEditAvatarDialog()">
+                <span>Изменить фото профиля</span>
+                <span class="setting-arrow">></span>
+            </div>
+        </div>
+    </div>
+
+        <!-- Блок безопасности -->
+    <div class="container settings-container">
+        <div class="settings-list">
+            <h2>Безопасность</h2>
+            <div class="setting-item danger" onclick="SettingsManager.showResetConfirmDialog()">
+                <span style="color: red;">Сбросить все данные</span>
+                <span class="setting-arrow" style="color: red;">></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для изменения имени -->
+    <div id="editNameModal" class="modal">
+        <div class="modal-content">
+            <h2>Изменить никнейм</h2>
+            <input type="text" id="newUsername" maxlength="20" placeholder="Введите новое имя" autocomplete="off">
+            <div class="modal-buttons">
+                <button class="submit-button" onclick="SettingsManager.saveName()">Сохранить</button>
+                <button class="cancel-button" onclick="SettingsManager.closeModal('editNameModal')">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для подтверждения сброса -->
+<div id="confirmResetModal" class="modal">
+    <div class="modal-content">
+        <h2>Сбросить данные</h2>
+        <p>Вы уверены, что хотите сбросить все данные? Это действие нельзя отменить.</p>
+        <div class="modal-buttons">
+            <button class="cancel-button" onclick="SettingsManager.resetData()">Сбросить</button>
+            <button class="submit-button" onclick="SettingsManager.closeModal('confirmResetModal')">Отмена</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- Добавляем модальное окно для изменения статуса -->
+    <div id="editStatusModal" class="modal">
+        <div class="modal-content">
+            <h2>Изменить статус</h2>
+            <input type="text" id="newStatus" maxlength="50" placeholder="Введите статус" autocomplete="off">
+            <div class="modal-buttons">
+                <button class="submit-button" onclick="SettingsManager.saveStatus()">Сохранить</button>
+                <button class="cancel-button" onclick="SettingsManager.closeModal('editStatusModal')">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для загрузки аватара -->
+    <div id="editAvatarModal" class="modal">
+        <div class="modal-content">
+            <h2>Изменить фото профиля</h2>
+            <div class="avatar-upload">
+                <div class="avatar-preview">
+                    <img id="avatarPreview" src="../media/default-avatar.png" alt="Аватар">
+                </div>
+                <input type="file" id="avatarInput" accept="image/*" style="display: none">
+                <button class="upload-button" onclick="document.getElementById('avatarInput').click()">
+                    Загрузить фото
+                </button>
+            </div>
+            <div class="modal-buttons">
+                <button class="submit-button" onclick="SettingsManager.saveAvatar()">Сохранить</button>
+                <button class="cancel-button" onclick="SettingsManager.closeModal('editAvatarModal')">Отмена</button>
+            </div>
+        </div>
+    </div>
+   <!-- <div class="ad-banner">Реклама</div> -->
+    <div class="footer">
+        <div class="icon" onclick="QuizCommon.goToHome()">
+            <img src="../media/home-icon.png" alt="Главная">
+            <div>Главная</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goToGames()">
+            <img src="../media/play-icon.png" alt="Играть">
+            <div>Играть</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goToAbout()">
+            <img src="../media/about-icon.png" alt="О проекте">
+            <div>О проекте</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goProfile()">
+            <img src="../media/profile-icon.png" alt="Профиль">
+            <div>Профиль</div>
+        </div>
+    </div>
+
+    <script src="../scripts/common.js"></script>
+    <script src="../scripts/achievementsManager.js"></script>
+    <script src="../scripts/userManager.js"></script>
+    <script src="../scripts/settingsManager.js"></script>
+    <script src="../scripts/theme.js"></script>
+</body>
+</html>

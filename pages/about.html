@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О проекте</title>
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="../media/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../media/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../media/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/about.css">
+</head>
+<body>
+    <div class="header">
+        <div class="title">Ваше имя</div>
+        <div class="points">🏆 Ваши очки</div>
+    </div>
+
+    <div class="about-container">
+        <section class="about-section">
+            <h1>О проекте</h1>
+            <p>AniQuiz - это интерактивная платформа для проверки знаний об аниме. 
+               Проект создан фанатами для фанатов и постоянно развивается благодаря поддержке сообщества.</p>
+        </section>
+
+        <section class="support-section">
+            <h2>Поддержать проект</h2>
+            <div class="support-links">
+                <a href="https://boosty.to/ваш_аккаунт" target="_blank" class="support-button boosty">
+                    <img src="../media/boosty-icon.png" alt="Boosty">
+                    <span>Поддержать на Boosty</span>
+                </a>
+                <a href="https://t.me/Quiz_Ani" target="_blank" class="support-button telegram">
+                    <img src="../media/telegram-icon.png" alt="Telegram">
+                    <span>Присоединиться к Telegram</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="contributors-section">
+            <h2>Спасибо за поддержку!</h2>
+            <div class="contributors-grid">
+                <!-- Карточки будут добавляться динамически через JavaScript -->
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2>Обратная связь</h2>
+            <p>По любым вопросам пишите на почту: <a href="mailto:your@email.com" class="email-link">AniQuiz@gmail.com</a></p>
+        </section>
+
+        <section class="legal-section">
+            <h2>Правовая информация</h2>
+            <div class="legal-links">
+                <a href="privacy.html" class="legal-link">Политика конфиденциальности</a>
+                <a href="terms.html" class="legal-link">Пользовательское соглашение</a>
+            </div>
+        </section>
+    </div>
+
+    <!--<div class="ad-banner">Реклама (слышь, нужна реклама?)</div> -->
+    <div class="footer">
+        <div class="icon" onclick="QuizCommon.goToHome()">
+            <img src="../media/home-icon.png" alt="Главная">
+            <div>Главная</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goToGames()">
+            <img src="../media/play-icon.png" alt="Играть">
+            <div>Играть</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goToAbout()">
+            <img src="../media/about-icon.png" alt="О проекте">
+            <div>О проекте</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goProfile()">
+            <img src="../media/profile-icon.png" alt="Профиль">
+            <div>Профиль</div>
+        </div>
+    </div>
+
+    <script src="../scripts/common.js"></script>
+    <script src="../scripts/init.js"></script>
+    <script src="../scripts/achievementsManager.js"></script>
+    <script src="../scripts/userManager.js"></script>
+    <script src="../scripts/theme.js"></script>
+    <script src="../scripts/about.js"></script>
+</body>
+</html> 

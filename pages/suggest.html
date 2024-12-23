@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Предложить тест - Аниме Викторина</title>
+    <script>
+        // Применяем тему сразу при загрузке страницы
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="../media/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../media/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../media/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="../styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Ваше имя</div>
+        <div class="points">🏆 Ваши очки</div>
+    </div>
+    
+    <div class="container">
+        <div class="suggest-form-container">
+            <h1>Предложить свой тест</h1>
+            <p class="suggest-description">Помогите сделать викторину интереснее! Предложите свои вопросы или идеи для новых тестов.</p>
+            
+            <form id="suggestForm" class="suggest-form">
+                <div class="form-group">
+                    <label for="testType">Тип теста</label>
+                    <select id="testType" required>
+                        <option value="">Выберите тип теста</option>
+                        <option value="screenshot">Угадай аниме по скриншоту</option>
+                        <option value="opening">Угадай аниме по опенингу</option>
+                        <option value="silhouette">Угадай персонажа по силуэту</option>
+                        <option value="other">Другое (опишите в комментарии)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="testTitle">Название теста</label>
+                    <input type="text" id="testTitle" required
+                        placeholder="Например: Угадай аниме по городу">
+                </div>
+
+                <div class="form-group author-options">
+                    <label>Авторство теста</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="authorType" value="anonymous" checked>
+                            <span>Анонимно</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="authorType" value="withName">
+                            <span>Указать моё имя как автора (Напишите в комментарии)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="questionsContainer">
+                    <!-- Первый вопрос -->
+                    <div class="question-block" data-question="1">
+                        <div class="question-header">
+                            <h3>Вопрос 1</h3>
+                            <button type="button" class="remove-question" title="Удалить вопрос">×</button>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Вопрос/Описание</label>
+                            <textarea class="question-text" rows="3" required 
+                                placeholder="Опишите ваш вопрос"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Правильный ответ</label>
+                            <input type="text" class="correct-answer" required
+                                placeholder="Укажите правильный ответ">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Варианты ответов</label>
+                            <textarea class="other-answers" rows="3" required
+                                placeholder="Укажите другие варианты ответов (по одному в строке)"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ссылка на медиафайл (если есть)</label>
+                            <input type="url" class="media-link"
+                                placeholder="Ссылка на изображение/аудио">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="addQuestion" class="add-question-button">
+                    + Добавить еще вопрос
+                </button>
+
+                <div class="form-group">
+                    <label for="comment">Дополнительный комментарий</label>
+                    <textarea id="comment" rows="2"
+                        placeholder="Любые дополнительные замечания или пожелания"></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">Отправить предложение</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="icon" onclick="QuizCommon.goToHome()">
+            <img src="../media/home-icon.png" alt="Главная">
+            <div>Главная</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goToGames()">
+            <img src="../media/play-icon.png" alt="Играть">
+            <div>Играть</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goToAbout()">
+            <img src="../media/about-icon.png" alt="О проекте">
+            <div>О проекте</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goProfile()">
+            <img src="../media/profile-icon.png" alt="Профиль">
+            <div>Профиль</div>
+        </div>
+    </div>
+
+    <script src="../scripts/common.js"></script>
+    <script src="../scripts/suggest.js"></script>
+    <script src="../scripts/init.js"></script>
+    <script src="../scripts/achievementsManager.js"></script>
+    <script src="../scripts/userManager.js"></script>
+    <script src="../scripts/theme.js"></script>
+</body>
+</html>
+

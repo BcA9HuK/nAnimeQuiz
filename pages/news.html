@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости - Аниме Викторина</title>
+    <script>
+        // Применяем тему сразу при загрузке страницы
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="../media/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../media/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../media/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="../styles/style.css">
+    <script src="../scripts/news.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Ваше имя</div>
+        <div class="points">🏆 Ваши очки</div>
+    </div>
+    
+    <div class="container">
+        <h1 class="news-title">Новости</h1>
+        
+        <div class="news-list">
+            <!-- Последняя новость -->
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-date">01.01.2024</span>
+                    <span class="news-tag new">Новое</span>
+                </div>
+                <h2>Добавлен новый тест "Угадай персонажа по силуэту"!</h2>
+                <p>Проверьте свои знания аниме персонажей в нашем новом захватывающем тесте. 
+                   Сможете ли вы узнать любимых героев только по их силуэтам?</p>
+                <div class="news-image">
+                    <img src="../media/test_preview/test3.jpg" alt="Новый тест">
+                </div>
+                <a href="../pages/test3.html" class="news-link">Попробовать тест →</a>
+            </div>
+
+            <!-- Предыдущие новости -->
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-date">25.12.2023</span>
+                </div>
+                <h2>Обновление: Добавлен тест "Угадай аниме по опенингу"</h2>
+                <p>Теперь вы можете проверить свои знания аниме опенингов! 
+                   Насколько хорошо вы знаете музыкальное сопровождение ваших любимых аниме?</p>
+                <div class="news-image">
+                    <img src="../media/test_preview/test2.jpg" alt="Тест по опенингам">
+                </div>
+                <a href="../pages/test2.html" class="news-link">Перейти к тесту →</a>
+            </div>
+
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-date">20.12.2023</span>
+                </div>
+                <h2>Запуск викторины</h2>
+                <p>Мы рады представить вам нашу аниме-викторину! Начните с теста "Угадай аниме по скриншоту" 
+                   и проверьте свои знания. Следите за обновлениями - скоро будут новые тесты!</p>
+                <div class="news-image">
+                    <img src="../media/test_preview/test1.jpg" alt="Первый тест">
+                </div>
+                <a href="../pages/test1.html" class="news-link">Начать тест →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="ad-banner">Реклама</div> -->
+    <div class="footer">
+        <div class="icon" onclick="QuizCommon.goToHome()">
+            <img src="../media/home-icon.png" alt="Главная">
+            <div>Главная</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goToGames()">
+            <img src="../media/play-icon.png" alt="Играть">
+            <div>Играть</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goToAbout()">
+            <img src="../media/about-icon.png" alt="О проекте">
+            <div>О проекте</div>
+        </div>
+        <div class="icon" onclick="QuizCommon.goProfile()">
+            <img src="../media/profile-icon.png" alt="Профиль">
+            <div>Профиль</div>
+        </div>
+    </div>
+
+    <script src="../scripts/common.js"></script>
+    <script src="../scripts/init.js"></script>
+    <script src="../scripts/achievementsManager.js"></script>
+    <script src="../scripts/userManager.js"></script>
+    <script src="../scripts/theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            NewsManager.renderAllNews('../');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1393 @@
+/* Общие стили */
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    background-color: var(--background-color); 
+    padding-bottom: 100px; 
+    color: var(--text-color);
+}
+/* Добавляем переменные для цветов */
+:root {
+    --background-color: #f9f9f9;
+    --text-color: #000000;
+    --card-background: #ffffff;
+    --header-gradient: linear-gradient(90deg, 
+        rgba(255, 7, 7, 0.2) 0%, 
+        rgba(16, 228, 186, 0.2) 46%, 
+        rgba(222, 238, 0, 0.2) 100%);
+    --shadow-color: rgba(0,0,0,0.1);
+    --footer-background: #ffffff;
+    --ad-banner-background: #cccccc;
+}
+
+[data-theme="dark"] {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --card-background: #2d2d2d;
+    --header-gradient: linear-gradient(90deg, 
+        rgba(255, 7, 7, 0.4) 0%, 
+        rgba(16, 228, 186, 0.4) 46%, 
+        rgba(222, 238, 0, 0.4) 100%);
+    --shadow-color: rgba(0,0,0,0.3);
+    --footer-background: #2d2d2d;
+    --ad-banner-background: #333333;
+}
+.container { 
+    padding: 10px; 
+    max-width: 480px; 
+    margin: 0 auto; 
+    padding-bottom: 80px; 
+}
+
+/* Шапка */
+.header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 15px 20px; 
+    background: var(--header-gradient),
+                var(--card-background);
+    color: var(--text-color); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    backdrop-filter: blur(10px);
+}
+
+.header .title { 
+    font-size: 1.2em; 
+    color: var(--text-color); 
+}
+.header .title_settings { 
+    font-size: 1.2em; 
+    color: var(--text-color); 
+    text-align: center;
+}
+
+.header .points {
+    color: var(--text-color);
+}
+
+/* Главная страница */
+.content { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+}
+
+.section { 
+    width: 100%; 
+    background: var(--card-background); 
+    border-radius: 10px; 
+    box-shadow: 0 2px 8px var(--shadow-color); 
+    overflow: hidden; 
+    cursor: pointer; 
+    transition: transform 0.2s; 
+}
+
+.section:hover {
+    transform: translateY(-2px);
+}
+
+.section img { 
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+    display: block; 
+}
+
+.section .caption { 
+    text-align: center; 
+    padding: 15px; 
+    font-weight: 500; 
+}
+
+/* Нижняя навигация */
+.footer { 
+    position: fixed;
+    bottom: 0;
+    left: 0; 
+    right: 0; 
+    display: flex; 
+    justify-content: space-around; 
+    background: var(--footer-background); 
+    padding: 10px 0; 
+    box-shadow: 0 -2px 5px var(--shadow-color); 
+    z-index: 5;
+    transition: bottom 0.3s ease;
+}
+
+/* Если ЕСТЬ баннер, поднимаем футер */
+.ad-banner ~ .footer {
+    bottom: 30px;
+}
+
+.footer .icon { 
+    text-align: center; 
+    cursor: pointer; 
+    transition: opacity 0.2s; 
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.footer .icon:hover {
+    opacity: 0.8; 
+}
+
+.footer .icon img { 
+    width: 24px; 
+    height: 24px; 
+}
+
+/* Рекламный баннер */
+.ad-banner { 
+    position: fixed;
+    bottom: 0;
+    height: 30px; 
+    width: 100%; 
+    background-color: var(--ad-banner-background); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 10;
+    color: var(--text-color);
+}
+
+/* Стили для тестов */
+.question-container {
+    padding: 15px;
+    background: transparent;
+    border-radius: 10px;
+    animation: fadeIn 0.5s;
+}
+
+.quiz-title {
+    font-size: 24px;
+    text-align: center;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.question-counter {
+    text-align: right;
+    color: #666;
+    margin: 10px 0;
+}
+
+/* Изображения в тестах */
+.question-image {
+       width: 100%;
+       height: 200px;
+       object-fit: cover;
+       border-radius: 10px;
+       margin: 10px auto;
+       display: block;
+   }
+
+/* Аудио в тестах */
+.audio-container {
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+[data-theme="dark"] .audio-container {
+    background: #404040;
+}
+
+.question-audio {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Кнопки ответов */
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.option-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #5D8A38 0%, #1D9FFC 100%);
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.option-button:hover:not([disabled]) {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.option-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+    filter: grayscale(30%);
+}
+
+/* Результаты */
+.results {
+    text-align: center;
+    padding: 20px;
+}
+
+.results p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: var(--text-color);
+}
+
+.results-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.results-buttons .option-button {
+    margin: 0;  /* Убираем margin, так как используем gap */
+    background: linear-gradient(90deg, #5D8A38 0%, #1D9FFC 100%);
+}
+
+.results-buttons .option-button:hover {
+    filter: brightness(1.1);
+}
+
+/* Опционально: другой цвет для кнопок результатов */
+.results-buttons .option-button {
+    background-color: #2196F3;  /* Синий цвет для разнообразия */
+}
+
+.results-buttons .option-button:hover {
+    background-color: #1976D2;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .quiz-title {
+        font-size: 20px;
+    }
+    
+    .option-button {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+.custom-audio-player {
+    background: #ffffff;
+    border-radius: 30px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    margin: 10px;
+}
+
+[data-theme="dark"] .custom-audio-player {
+    background: #2d2d2d;
+}
+
+.play-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(90deg, #5D8A38 0%, #1D9FFC 100%);
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--shadow-color);
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: height 0.2s;
+}
+
+.progress-bar:hover {
+    height: 8px; /* Немного увеличиваем при наведении */
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #5D8A38 0%, #1D9FFC 100%);
+    width: 0;
+    transition: width 0.1s linear;
+}
+
+/* Добавляем подсветку при наведении */
+.progress-bar:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.time {
+    font-size: 14px;
+    color: var(--text-color);
+    min-width: 45px;
+}
+
+.question-audio {
+    display: none;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px;
+}
+
+.volume-slider {
+    width: 60px;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--shadow-color);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #5D8A38;
+    cursor: pointer;
+}
+
+.volume-control i {
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+.audio-message {
+    text-align: center;
+    color: var(--text-color);
+    font-size: 14px;
+    margin-top: 10px;
+    /* Анимация появления */
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.profile-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.profile-info {
+    flex: 1;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.settings-icon {
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.social-links i {
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.achievements {
+    margin-top: 20px;
+}
+
+.achievement-icons img {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+}
+
+/* Специальный класс для силуэтов в тесте 3 */
+.silhouette-image {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: block;
+    filter: brightness(0%); /* Делаем изображение чёрным */
+}
+.poster-image {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: block;
+}
+
+/* Стили для страницы настроек */
+.settings-container {
+    padding: 10px 20px;
+}
+
+.settings-list {
+    background: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    padding: 20px;
+    color: var(--text-color);
+}
+.settings-list h2 {
+    color: var(--text-color);
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--shadow-color);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+/* Стили для переключателя темы */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background: linear-gradient(90deg, #5D8A38 0%, #1D9FFC 100%);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Обновляем стили для аудио-контейнера */
+.audio-container {
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+[data-theme="dark"] .audio-container {
+    background: #404040;
+}
+
+/* Обновляем стили для кастомного аудиоплеера */
+.custom-audio-player {
+    background: #ffffff;
+    border-radius: 30px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    margin: 10px;
+}
+
+[data-theme="dark"] .custom-audio-player {
+    background: #2d2d2d;
+}
+
+/* Добавляем стиль для белого контейнера вокруг плеера */
+.player-wrapper {
+    background: var(--card-background);
+    border-radius: 15px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.audio-message {
+    text-align: center;
+    color: var(--text-color);
+    font-size: 14px;
+    margin-top: 10px;
+}
+.language-select {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid var(--shadow-color);
+    background: var(--card-background);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.language-select:focus {
+    outline: none;
+    border-color: #5D8A38;
+}
+
+[data-theme="dark"] .language-select {
+    border-color: var(--shadow-color);
+}
+
+/* Стили для главной страницы */
+.home-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+/* Карточка новостей */
+.news-card {
+    background: var(--card-background);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.news-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.news-preview {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--shadow-color);
+}
+
+.news-date {
+    color: #666;
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.news-text {
+    margin: 10px 0;
+}
+
+.read-more {
+    color: #2196F3;
+    font-size: 0.9em;
+}
+
+/* Секции с тестами */
+.tests-section {
+    margin: 10px 0;
+}
+
+.tests-section h2 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.tests-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* Мини-карточки тестов */
+.test-mini-card {
+    background: var(--card-background);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.test-mini-card:hover {
+    transform: translateY(-2px);
+}
+
+.test-mini-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.test-mini-info {
+    padding: 10px;
+}
+
+.test-mini-info p {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+/* Карточки будущих тестов */
+.coming-soon {
+    opacity: 0.7;
+    position: relative;
+}
+
+.coming-soon::after {
+    content: "Скоро";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+/* Карточка предложения тестов */
+.suggest-card {
+    background: linear-gradient(45deg, rgba(107,107,255,0.1), rgba(107,255,107,0.1));
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    cursor: pointer;
+    transition: transform 0.2s;
+    text-align: center;
+}
+
+.suggest-card:hover {
+    transform: translateY(-2px);
+}
+
+.suggest-card p {
+    margin: 10px 0 0;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 380px) {
+    .tests-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Стили для страницы новостей */
+.news-title {
+    text-align: center;
+    color: var(--text-color);
+    margin: 20px 0;
+    font-size: 1.8em;
+}
+
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.news-item {
+    background: var(--card-background);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.news-date {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.news-tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+.news-tag.new {
+    background: #4CAF50;
+    color: white;
+}
+
+.news-item h2 {
+    color: var(--text-color);
+    margin: 10px 0;
+    font-size: 1.3em;
+}
+
+.news-item p {
+    color: var(--text-color);
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.news-image {
+    margin: 15px 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.news-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.news-link {
+    display: inline-block;
+    color: #2196F3;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: transform 0.2s;
+}
+
+.news-link:hover {
+    transform: translateX(5px);
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 480px) {
+    .news-image img {
+        height: 150px;
+    }
+    
+    .news-item h2 {
+        font-size: 1.1em;
+    }
+}
+
+/* Стили для формы предложений */
+.suggest-form-container {
+    background: var(--card-background);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.suggest-form-container h1 {
+    color: var(--text-color);
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.suggest-description {
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.suggest-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+.suggest-form input,
+.suggest-form select,
+.suggest-form textarea {
+    padding: 10px;
+    border: 1px solid var(--shadow-color);
+    border-radius: 8px;
+    background: var(--card-background);
+    color: var(--text-color);
+    font-size: 1em;
+}
+
+.suggest-form input:focus,
+.suggest-form select:focus,
+.suggest-form textarea:focus {
+    outline: none;
+    border-color: #5D8A38;
+}
+
+.submit-button {
+    background: linear-gradient(90deg, #5D8A38 0%, #1D9FFC 100%);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    margin-top: 10px;
+}
+.cancel-button {
+    background: linear-gradient(90deg, #BA3B3B 0%, #FC1DDE 100%);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* Стили для темной темы */
+[data-theme="dark"] .suggest-form input,
+[data-theme="dark"] .suggest-form select,
+[data-theme="dark"] .suggest-form textarea {
+    background: #363636;
+    border-color: #444;
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 480px) {
+    .suggest-form-container {
+        padding: 15px;
+    }
+    
+    .suggest-form-container h1 {
+        font-size: 1.3em;
+    }
+}
+
+/* Стили для блоков вопросов */
+.question-block {
+    background: var(--card-background);
+    border: 1px solid var(--shadow-color);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    position: relative;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.question-header h3 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.1em;
+}
+
+.remove-question {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+.add-question-button {
+    background: none;
+    border: 2px dashed var(--shadow-color);
+    color: var(--text-color);
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: all 0.2s;
+}
+
+.add-question-button:hover {
+    background: var(--shadow-color);
+}
+
+/* Анимация для новых вопросов */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.question-block {
+    animation: slideDown 0.3s ease;
+}
+
+/* Стили для выбора авторства */
+.author-options {
+    margin: 10px 0;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.radio-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: #5D8A38;
+}
+
+.radio-label span {
+    font-size: 0.95em;
+}
+
+/* Стили для темной темы */
+[data-theme="dark"] .radio-label input[type="radio"] {
+    border-color: #444;
+}
+
+.achievement-notification {
+    position: fixed;
+    bottom: -100px;
+    right: 20px;
+    background: var(--card-background);
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.achievement-notification.show {
+    transform: translateY(-120px);
+}
+
+.achievement-notification img {
+    width: 48px;
+    height: 48px;
+}
+
+.achievement-notification .achievement-info {
+    flex: 1;
+}
+
+.achievement-notification h3 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1em;
+}
+
+.achievement-notification p {
+    margin: 5px 0 0;
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+/* Стили для профиля */
+.profile-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar {
+    font-size: 3em;
+    width: 80px;
+    height: 80px;
+    background: var(--card-background);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Статистика */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Достижения */
+.achievements-container {
+    display: grid;
+    gap: 15px;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--card-background);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.achievement-item.locked {
+    opacity: 0.5;
+}
+
+.achievement-icon {
+    font-size: 2em;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background-color);
+    border-radius: 50%;
+}
+
+.achievement-info {
+    flex: 1;
+}
+
+.achievement-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.achievement-description {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background-color);
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 300px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.user-status {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin: 5px 0;
+    opacity: 0.8;
+}
+
+/* Если статус не установлен */
+.user-status:empty::before {
+    content: 'Статус не установлен';
+    opacity: 0.5;
+}
+
+.avatar-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.avatar-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--card-background);
+}
+
+.avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-button {
+    background: var(--accent-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.upload-button:hover {
+    background: var(--accent-color-hover);
+}
+
+/* Обновляем стили для аватара в профиле */
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.install-button {
+    position: fixed;
+    bottom: 80px; /* Выше навигационного меню */
+    right: 20px;
+    padding: 12px 24px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.install-button:hover {
+    background: var(--accent-color-dark);
+}
+
+.install-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: var(--card-background);
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    animation: slideIn 0.3s ease;
+}
+
+.install-text {
+    color: var(--text-color);
+}
+
+.install-text p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.install-text small {
+    color: var(--text-color-secondary);
+}
+
+.install-close {
+    background: none;
+    border: none;
+    color: var(--text-color-secondary);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.install-close:hover {
+    color: var(--text-color);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.profile-install-btn {
+    display: none; /* По умолчанию скрыта */
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.3s ease;
+}
+
+.profile-install-btn:hover {
+    background: var(--accent-color-dark);
+}
+
+.profile-install-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.profile-install-btn span {
+    font-weight: 500;
+}
