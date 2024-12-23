@@ -1367,6 +1367,7 @@ input:checked + .slider:before {
     width: 100%;
     padding: 12px;
     background: var(--card-background);
+    box-shadow: 0 2px 8px var(--shadow-color);
     color: var(--text-color);
     border: none;
     border-radius: 8px;
