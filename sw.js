@@ -34,7 +34,6 @@ self.addEventListener('activate', event => {
             return Promise.all(
                 cacheNames.map(cacheName => {
                     if (cacheName !== CACHE_NAME) {
-                        console.log('Удаление старого кэша:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
@@ -47,8 +46,9 @@ self.addEventListener('activate', event => {
 
 // Перехват запросов
 self.addEventListener('fetch', event => {
-    // Пропускаем запросы с base64
-    if (event.request.url.startsWith('data:')) {
+    // Пропускаем запросы к chrome-extension
+    if (event.request.url.startsWith('chrome-extension://') || 
+        event.request.url.startsWith('data:')) {
         return;
     }
 
@@ -58,18 +58,40 @@ self.addEventListener('fetch', event => {
                 if (response) {
                     return response;
                 }
-                return fetch(event.request)
-                    .then(response => {
-                        if (!response || response.status !== 200 || response.type !== 'basic') {
-                            return response;
-                        }
-                        const responseToCache = response.clone();
-                        caches.open(CACHE_NAME)
-                            .then(cache => {
-                                cache.put(event.request, responseToCache);
-                            });
+
+                // Клонируем запрос, так как он может быть использован только один раз
+                const fetchRequest = event.request.clone();
+
+                return fetch(fetchRequest).then(response => {
+                    // Проверяем валидность ответа
+                    if (!response || response.status !== 200) {
                         return response;
-                    });
+                    }
+
+                    // Не кэшируем если это не наш домен
+                    const url = new URL(event.request.url);
+                    if (!url.pathname.startsWith('/nAnimeQuiz/')) {
+                        return response;
+                    }
+
+                    // Клонируем ответ, так как он может быть использован только один раз
+                    const responseToCache = response.clone();
+
+                    caches.open(CACHE_NAME)
+                        .then(cache => {
+                            cache.put(event.request, responseToCache);
+                        })
+                        .catch(err => {
+                            console.log('Ошибка кэширования:', err);
+                        });
+
+                    return response;
+                });
+            })
+            .catch(error => {
+                console.log('Ошибка fetch:', error);
+                // Возвращаем закэшированную версию при ошибке сети
+                return caches.match(event.request);
             })
     );
 }); 
