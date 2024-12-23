@@ -1,67 +1,48 @@
 const InstallManager = {
+    deferredPrompt: null,
+
     init() {
-        let deferredPrompt;
+        // Создаем кнопку установки
         const installButton = document.createElement('button');
         installButton.classList.add('install-button');
         installButton.style.display = 'none';
-        
-        // Добавляем крестик для закрытия
-        const installContainer = document.createElement('div');
-        installContainer.classList.add('install-container');
-        
-        const closeButton = document.createElement('button');
-        closeButton.classList.add('install-close');
-        closeButton.innerHTML = '×';
-        
-        const installText = document.createElement('div');
-        installText.classList.add('install-text');
-        installText.innerHTML = `
-            <p>Установите приложение</p>
-            <small>для быстрого доступа к тестам</small>
+        installButton.innerHTML = `
+            <img src="/nAnimeQuiz/media/install-icon.png" alt="Установить">
+            <span>Установить приложение</span>
         `;
-        
-        installContainer.appendChild(installText);
-        installContainer.appendChild(closeButton);
-        document.body.appendChild(installContainer);
+        document.body.appendChild(installButton);
 
-        // Проверяем, не отклонил ли пользователь установку ранее
-        const isInstallDeclined = localStorage.getItem('installDeclined');
-
+        // Отслеживаем возможность установки
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
-            deferredPrompt = e;
-            
-            // Показываем кнопку только если пользователь не отклонял установку
-            if (!isInstallDeclined) {
-                installContainer.style.display = 'flex';
+            this.deferredPrompt = e;
+            installButton.style.display = 'flex';
+            console.log('PWA может быть установлено'); // Для отладки
+        });
+
+        // Обработчик клика по кнопке
+        installButton.addEventListener('click', async () => {
+            if (this.deferredPrompt) {
+                console.log('Показываем промпт установки'); // Для отладки
+                this.deferredPrompt.prompt();
+                const { outcome } = await this.deferredPrompt.userChoice;
+                console.log('Результат установки:', outcome);
+                this.deferredPrompt = null;
+                installButton.style.display = 'none';
+            } else {
+                console.log('deferredPrompt не доступен'); // Для отладки
             }
         });
 
-        installContainer.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log(`User response: ${outcome}`);
-                deferredPrompt = null;
-                installContainer.style.display = 'none';
-            }
-        });
-
-        // Обработка закрытия
-        closeButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Предотвращаем всплытие события
-            installContainer.style.display = 'none';
-            // Запоминаем, что пользователь отклонил установку
-            localStorage.setItem('installDeclined', 'true');
-        });
-
+        // Если приложение уже установлено
         window.addEventListener('appinstalled', () => {
-            console.log('PWA was installed');
-            installContainer.style.display = 'none';
+            console.log('PWA успешно установлено');
+            installButton.style.display = 'none';
         });
     }
 };
 
+// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     InstallManager.init();
 }); 

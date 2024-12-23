@@ -18,21 +18,20 @@ const ProfileManager = {
             status.textContent = userStatus || 'Статус не установлен';
         }
         if (avatarImg) {
-            const defaultAvatar = './media/default-avatar.png';
+            const defaultAvatar = '/nAnimeQuiz/media/default-avatar.png';
             const currentAvatar = UserManager.getAvatar();
             
-            if (window.location.pathname.includes('/pages/')) {
-                avatarImg.src = '../' + (currentAvatar || 'media/default-avatar.png');
+            if (currentAvatar && currentAvatar !== 'null' && currentAvatar !== 'undefined') {
+                avatarImg.src = currentAvatar;
+                console.log('Установлен аватар:', currentAvatar);
             } else {
-                avatarImg.src = currentAvatar || defaultAvatar;
+                avatarImg.src = defaultAvatar;
+                console.log('Установлен дефолтный аватар');
             }
             
             avatarImg.onerror = function() {
-                if (window.location.pathname.includes('/pages/')) {
-                    this.src = '../media/default-avatar.png';
-                } else {
-                    this.src = './media/default-avatar.png';
-                }
+                console.log('Ошибка загрузки аватара, устанавливаем дефолтный');
+                this.src = defaultAvatar;
             };
         }
         UserManager.updatePointsDisplay();
