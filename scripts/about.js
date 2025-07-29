@@ -2,7 +2,6 @@ const AboutManager = {
     contributors: [
         {
             name: "BcA9HuK",
-            details: "1000₽",
             details2: "6 тестов",
             money: true, // для первого details
             tests: true   // для второго details
@@ -14,7 +13,7 @@ const AboutManager = {
         },
         {
             name: "Третий Участник",
-            details: "500₽"
+            details: "Тест"
         },
         {
             name: "Четвёртый Участник",
